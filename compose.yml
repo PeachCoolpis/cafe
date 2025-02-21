@@ -1,0 +1,9 @@
+services:
+  my-db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd1234
+    volumes:
+      - C:/Users/rlglx/OneDrive/Desktop/mysqlFolder/mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
