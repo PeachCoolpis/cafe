@@ -1,4 +1,4 @@
-package sample.cafe.product;
+package sample.cafe.domain.product;
 
 
 import jakarta.persistence.*;

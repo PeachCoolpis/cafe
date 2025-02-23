@@ -1,4 +1,4 @@
-package sample.cafe.product;
+package sample.cafe.domain.product;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package sample.cafe.api.service.product.resposene;
 
 import lombok.Getter;
-import sample.cafe.product.Product;
-import sample.cafe.product.ProductSellingStatus;
-import sample.cafe.product.ProductType;
+import sample.cafe.domain.product.Product;
+import sample.cafe.domain.product.ProductSellingStatus;
+import sample.cafe.domain.product.ProductType;
 
 @Getter
 public class ProductResponse {
