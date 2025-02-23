@@ -7,9 +7,9 @@ public class CafeKioskRunner {
     public static void main(String[] args) {
         CafeKiosk cafeKiosk = new CafeKiosk();
         
-        cafeKiosk.add(new Americano());
+        cafeKiosk.add(new Americano(),1);
         
-        cafeKiosk.add(new Latte());
+        cafeKiosk.add(new Latte(),1);
         
         System.out.println(cafeKiosk.calculateTotalPrice());
     }
