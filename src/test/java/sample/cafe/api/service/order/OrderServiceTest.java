@@ -45,7 +45,7 @@ class OrderServiceTest {
         orderRepository.deleteAllInBatch();
     }
     
-    @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
+    @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrder() {
         // given
@@ -57,7 +57,7 @@ class OrderServiceTest {
         productRepository.saveAll(List.of(product1, product2, product3));
         
         OrderCreateRequest request = OrderCreateRequest.builder()
-                .productNumbers(List.of("001", "002"))
+                .productNumbers(List.of("001","001","002", "003"))
                 .build();
         
         // when
