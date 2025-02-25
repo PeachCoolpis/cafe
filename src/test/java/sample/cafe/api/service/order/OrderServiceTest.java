@@ -96,6 +96,7 @@ class OrderServiceTest {
         
         // then
         //asdasdasd
+        //ddddd
         assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
                 .extracting("registeredDateTime", "totalPrice")
