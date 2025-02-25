@@ -1,4 +1,4 @@
-package sample.cafe.product;
+package sample.cafe.domain.product;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -3,6 +3,8 @@ package sample.cafe.api.service.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafe.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafe.api.service.product.resposene.ProductResponse;
 import sample.cafe.domain.order.Order;
 import sample.cafe.domain.product.Product;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
     
     private final ProductRepository repository;
@@ -29,5 +32,9 @@ public class ProductService {
                 .map(ProductResponse::of)
                 .toList();
         
+    }
+    
+    public void create(ProductCreateRequest request) {
+    
     }
 }
