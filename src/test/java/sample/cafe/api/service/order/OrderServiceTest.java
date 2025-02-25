@@ -93,7 +93,7 @@ class OrderServiceTest {
         
         // when
         OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
-        //sdsdsdsdsdsd
+        
         // then
         //asdasdasd
         assertThat(orderResponse.getId()).isNotNull();
