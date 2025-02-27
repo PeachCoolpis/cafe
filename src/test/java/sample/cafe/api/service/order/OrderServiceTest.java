@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import sample.cafe.api.controller.order.request.OrderCreateRequest;
+import sample.cafe.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafe.api.service.order.response.OrderResponse;
 import sample.cafe.domain.orderproduct.OrderProductRepository;
 import sample.cafe.domain.order.OrderRepository;
@@ -61,7 +62,7 @@ class OrderServiceTest {
                 .build();
         
         // when
-        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), registeredDateTime);
         
         // then
         assertThat(orderResponse.getId()).isNotNull();
@@ -92,7 +93,7 @@ class OrderServiceTest {
                 .build();
         
         // when
-        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), registeredDateTime);
         
         // then
         assertThat(orderResponse.getId()).isNotNull();

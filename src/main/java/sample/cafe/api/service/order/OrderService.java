@@ -10,6 +10,7 @@ import sample.cafe.domain.order.Order;
 import sample.cafe.domain.order.OrderRepository;
 import sample.cafe.domain.product.Product;
 import sample.cafe.domain.product.ProductRepository;
+import sample.cafe.domain.product.ProductType;
 import sample.cafe.domain.stock.Stock;
 import sample.cafe.domain.stock.StockRepository;
 
