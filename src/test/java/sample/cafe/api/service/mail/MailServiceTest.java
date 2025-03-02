@@ -34,7 +34,7 @@ class MailServiceTest {
         //given
         // MailSendClient mailSendClient = mock(MailSendClient.class);
         // MailSendHistoryRepository mailSendHistoryRepository = mock(MailSendHistoryRepository.class);
-        MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
+        
         
         //when
         when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
