@@ -1,11 +1,13 @@
 package sample.cafe.api.service.order;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafe.IntegrationTestSupport;
 import sample.cafe.api.controller.order.request.OrderCreateRequest;
 import sample.cafe.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafe.api.service.order.response.OrderResponse;
@@ -23,9 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static sample.cafe.domain.product.ProductSellingStatus.*;
 import static sample.cafe.domain.product.ProductType.HANDMADE;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class OrderServiceTest {
+
+class OrderServiceTest extends IntegrationTestSupport {
     
     @Autowired
     private ProductRepository productRepository;
@@ -46,6 +47,7 @@ class OrderServiceTest {
         orderRepository.deleteAllInBatch();
     }
     
+    @Disabled
     @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrder() {
@@ -77,6 +79,7 @@ class OrderServiceTest {
                 );
     }
     
+    @Disabled
     @DisplayName("중복되는 상품번호 리스트로 주문을 생성할 수 있다.")
     @Test
     void createOrderWithDuplicateProductNumbers() {

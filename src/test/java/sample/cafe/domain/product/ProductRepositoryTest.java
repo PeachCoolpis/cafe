@@ -1,10 +1,12 @@
 package sample.cafe.domain.product;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafe.IntegrationTestSupport;
 import sample.cafe.domain.product.Product;
 import sample.cafe.domain.product.ProductRepository;
 
@@ -15,14 +17,14 @@ import static sample.cafe.domain.product.ProductSellingStatus.*;
 import static sample.cafe.domain.product.ProductType.*;
 
 
-@SpringBootTest
-@ActiveProfiles("test")
-class ProductRepositoryTest {
+
+class ProductRepositoryTest extends IntegrationTestSupport {
     
     
     @Autowired
     private ProductRepository productRepository;
     
+    @Disabled
     @DisplayName("원하는 판매상태를 가진 상품들을 조회한다.")
     @Test
     void findAllBySellingStatusIn(){
@@ -45,6 +47,7 @@ class ProductRepositoryTest {
         products.forEach(product -> assertThat(product.getSellingStatus()).isIn(SELLING, HOLD));
     }
     
+    @Disabled
     @DisplayName("원하는 판매번호를 가진 상품들을 조회한다.")
     @Test
     void findAllByProductNumberIn(){

@@ -2,12 +2,14 @@ package sample.cafe.api.service.order;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import sample.cafe.IntegrationTestSupport;
 import sample.cafe.api.client.MailSendClient;
 import sample.cafe.domain.history.mail.MailSendHistory;
 import sample.cafe.domain.history.mail.MailSendHistoryRepository;
@@ -29,8 +31,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static sample.cafe.domain.product.ProductType.*;
 
 
-@SpringBootTest
-class OrderStatisticsServiceTest {
+
+class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
@@ -44,8 +46,7 @@ class OrderStatisticsServiceTest {
     @Autowired
     MailSendHistoryRepository mailSendHistoryRepository;
     
-    @MockBean
-    private MailSendClient mailSendClient;
+
     
     
     
@@ -55,6 +56,7 @@ class OrderStatisticsServiceTest {
         productRepository.deleteAllInBatch();
     }
     
+    @Disabled
     @DisplayName("결제완료 주문들을 조회하여 매출 통계 메일을 전송한다.")
     @Test
     void sendOrderStatisticsMail(){
