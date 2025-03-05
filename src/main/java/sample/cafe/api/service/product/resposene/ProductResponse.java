@@ -1,11 +1,14 @@
 package sample.cafe.api.service.product.resposene;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import sample.cafe.domain.product.Product;
 import sample.cafe.domain.product.ProductSellingStatus;
 import sample.cafe.domain.product.ProductType;
 
 @Getter
+@NoArgsConstructor
 public class ProductResponse {
     
     private Long id;
@@ -29,5 +32,14 @@ public class ProductResponse {
         productResponse.name = product.getName();
         productResponse.price = product.getPrice();
         return productResponse;
+    }
+    @Builder
+    public ProductResponse(Long id, String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
+        this.id = id;
+        this.productNumber = productNumber;
+        this.type = type;
+        this.sellingStatus = sellingStatus;
+        this.name = name;
+        this.price = price;
     }
 }
