@@ -8,11 +8,17 @@ import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
-public class CustomLog4JdbcCustomFormatter  implements SpyLogDelegator {
+public class CustomLog4JdbcCustomFormatter implements SpyLogDelegator {
     
     
     private static final Logger sqlLogger = LoggerFactory.getLogger("jdbc.sqlonly");
-    private static final Pattern pattern = Pattern.compile("\\n[\\t\\s]*\\n");
+    
+    private static final Pattern CLEAN_PATTERN = Pattern.compile("\\n[\\t\\s]*\\n");
+    private static final Pattern SQL_KEYWORDS = Pattern.compile(
+            "\\b(from|where|and|or|group by|order by|having|left join|right join|inner join|outer join|select|insert into|values|update|set)\\b",
+            Pattern.CASE_INSENSITIVE
+    );
+    
     
     @Override
     public boolean isJdbcLoggingEnabled() {
@@ -21,15 +27,24 @@ public class CustomLog4JdbcCustomFormatter  implements SpyLogDelegator {
     
     @Override
     public void sqlOccurred(Spy spy, String methodCall, String rawSql) {
+        // 1. 줄바꿈 정리
+        String cleanedSql = CLEAN_PATTERN.matcher(rawSql).replaceAll("\n");
         
-        String cleanedSql = pattern.matcher(rawSql).replaceAll("\n");
+        // 2. SQL 키워드 기준으로 줄바꿈
+        cleanedSql = SQL_KEYWORDS.matcher(cleanedSql).replaceAll("\n$1");
+        
+        // 3. 콤마 뒤에도 개행 추가 (SELECT, SET 등)
+        cleanedSql = cleanedSql.replaceAll(",\\s*", ",\n  ");
+        
+        // 4. Mapper 정보 (ThreadLocal로부터)
         String mapperId = JpaQueryContextHolder.get();
         if (mapperId != null) {
-            cleanedSql = "/* " + mapperId + " */\n" + cleanedSql;
+            cleanedSql = "/* " + mapperId + " */" + cleanedSql;
             JpaQueryContextHolder.clear();
         }
         
         sqlLogger.info("[SQL] {} :::\n{}", methodCall, cleanedSql);
+        
     }
     
     @Override
@@ -42,31 +57,48 @@ public class CustomLog4JdbcCustomFormatter  implements SpyLogDelegator {
         sqlLogger.error("SQL ERROR [{}] :::\n{}", execTime, sql, e);
     }
     
-    @Override public void methodReturned(Spy spy, String returnMsg, String methodCall) {
+    @Override
+    public void methodReturned(Spy spy, String returnMsg, String methodCall) {
     
     }
-    @Override public void constructorReturned(Spy spy, String constructorMsg) {
+    
+    @Override
+    public void constructorReturned(Spy spy, String constructorMsg) {
     
     }
-    @Override public void connectionOpened(Spy spy, long execTime) {
+    
+    @Override
+    public void connectionOpened(Spy spy, long execTime) {
     
     }
-    @Override public void connectionClosed(Spy spy, long execTime) {
+    
+    @Override
+    public void connectionClosed(Spy spy, long execTime) {
     
     }
-    @Override public void connectionAborted(Spy spy, long execTime) {
+    
+    @Override
+    public void connectionAborted(Spy spy, long execTime) {
     
     }
-    @Override public void debug(String msg) {
+    
+    @Override
+    public void debug(String msg) {
     
     }
-    @Override public boolean isResultSetCollectionEnabled() {
+    
+    @Override
+    public boolean isResultSetCollectionEnabled() {
         return false;
     }
-    @Override public boolean isResultSetCollectionEnabledWithUnreadValueFillIn() {
+    
+    @Override
+    public boolean isResultSetCollectionEnabledWithUnreadValueFillIn() {
         return false;
     }
-    @Override public void resultSetCollected(ResultSetCollector resultSetCollector) {
+    
+    @Override
+    public void resultSetCollected(ResultSetCollector resultSetCollector) {
     
     }
 }

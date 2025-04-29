@@ -24,7 +24,6 @@ class ProductRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private ProductRepository productRepository;
     
-    @Disabled
     @DisplayName("원하는 판매상태를 가진 상품들을 조회한다.")
     @Test
     void findAllBySellingStatusIn(){
